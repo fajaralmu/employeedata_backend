@@ -37,7 +37,7 @@ public class Employee implements Serializable{
 	@JoinColumn(name = "POSITION_ID", nullable = false)
 	private Position position;
 	@Column(name="BIRTH_DATE", nullable = false)
-	@JsonFormat(pattern = "YYYY-MM-DD")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	@Column(name="ID_NUMBER", unique = true, nullable = false)
 	private long idNumber;
