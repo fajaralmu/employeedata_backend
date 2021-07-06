@@ -1,6 +1,7 @@
 package com.fajar.employeedata.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,14 +29,14 @@ public class EmployeeDAO {
 
 	public Employee getById(Integer id) {
 		try (SessionWrapper sessionWrapper = new SessionWrapper(sessionFactory)) {
-			 Criteria criteria = sessionWrapper.createCriteria(Employee.class);
-			 criteria.setMaxResults(1);
-			 criteria.add(Restrictions.eq("id", id));
-			 criteria.add(Restrictions.eq("isDelete", 0));
-			 if (criteria.list().size() > 0) {
-				 return (Employee) criteria.list().get(0);
-			 } 
-		} catch (Exception e) { 
+			Criteria criteria = sessionWrapper.createCriteria(Employee.class);
+			criteria.setMaxResults(1);
+			criteria.add(Restrictions.eq("id", id));
+			criteria.add(Restrictions.eq("isDelete", 0));
+			if (criteria.list().size() > 0) {
+				return (Employee) criteria.list().get(0);
+			}
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return null;
@@ -64,7 +65,7 @@ public class EmployeeDAO {
 	}
 
 	public Employee delete(Employee employee) {
-		
+
 		Transaction tx = null;
 		try (SessionWrapper sessionWrapper = new SessionWrapper(sessionFactory)) {
 			Employee existing = (Employee) sessionWrapper.getSession().get(Employee.class, employee.getId());
@@ -75,20 +76,23 @@ public class EmployeeDAO {
 			existing.setDeleted();
 			sessionWrapper.getSession().persist(existing);
 			tx.commit();
-			
+
 			return existing;
 		} catch (Exception e) {
 			if (tx != null) {
 				tx.rollback();
 			}
 			throw new RuntimeException(e);
-		} 
+		}
 	}
 
 	public Page<Employee> getListForPagination(TableRequest tableRequest, HttpServletRequest httpRequest) {
-
-		if (null == tableRequest.getOrderBy()) {
+		boolean validated = validateOrderBy(tableRequest.getOrderBy());
+		if (!validated || null == tableRequest.getOrderBy()) {
 			tableRequest.setOrderBy("id");
+		}
+		if ("position".equals(tableRequest.getOrderBy())) {
+			tableRequest.setOrderBy("position.name");
 		}
 		Sort sort = Sort.by(tableRequest.getOrder());
 		int size = tableRequest.getLimit() > 0 ? tableRequest.getLimit() : Integer.MAX_VALUE;
@@ -97,6 +101,21 @@ public class EmployeeDAO {
 
 		Page<Employee> result = employeeRepository.findAllNotDeleted(pageable);
 		return result;
+
+	}
+
+	private boolean validateOrderBy(String orderBy) {
+
+		try {
+			Field field = Employee.class.getDeclaredField(orderBy);
+			if (null == field) {
+				return false;
+			}
+			return true;
+		} catch (NoSuchFieldException | SecurityException e) { 
+			e.printStackTrace(); 
+		}
+		return false;
 
 	}
 
