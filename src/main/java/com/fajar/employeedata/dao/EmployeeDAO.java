@@ -43,7 +43,7 @@ public class EmployeeDAO {
 	}
 
 	public Employee insert(Employee employee) {
-
+		checkExistingNip(employee);
 		Transaction tx = null;
 		try (SessionWrapper sessionWrapper = new SessionWrapper(sessionFactory)) {
 			tx = sessionWrapper.getSession().beginTransaction();
@@ -57,6 +57,13 @@ public class EmployeeDAO {
 			throw new RuntimeException(e);
 		}
 		return employee;
+	}
+
+	private void checkExistingNip(Employee employee) {
+		Employee existing = employeeRepository.findTop1ByIdNumber(employee.getIdNumber());
+		if (null != existing) {
+			throw new RuntimeException("NIP sudah ada");
+		}
 	}
 
 	public Employee update(Employee employee) {

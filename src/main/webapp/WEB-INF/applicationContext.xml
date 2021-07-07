@@ -36,10 +36,19 @@
 		<property name="driverClassName"
 			value="org.postgresql.Driver" />
 		<property name="url"
+			value="jdbc:postgresql://ec2-3-214-136-47.compute-1.amazonaws.com:5432/d9tc7sot20ubr1" />
+		<property name="username" value="mtffegediqgxpz" />
+		<property name="password" value="4c04ad78927550b795a52608cc9491ca6e686f0290b8ec9963144baecc9b3651" />
+	</bean> 
+<!-- 	  <bean id="dataSource_postgres"
+		 class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="org.postgresql.Driver" />
+		<property name="url"
 			value="jdbc:postgresql://localhost:5432/employeedata" />
 		<property name="username" value="postgres" />
 		<property name="password" value="root" />
-	</bean> 
+	</bean>  -->
 	 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

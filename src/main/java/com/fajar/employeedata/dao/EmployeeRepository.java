@@ -11,6 +11,8 @@ public interface EmployeeRepository extends JpaRepository<Employee	, Integer>{
 
 	@Query("select e from Employee e where isDelete = 0")
 	Page<Employee> findAllNotDeleted(Pageable pageable);
+
+	Employee findTop1ByIdNumber(long idNumber);
  
 	 
 

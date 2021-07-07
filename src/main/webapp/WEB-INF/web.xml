@@ -37,5 +37,7 @@
 		<filter-name>appFilter</filter-name>
 		<url-pattern>/app/*</url-pattern>
 	</filter-mapping> 
-
+	<error-page>
+		<location>/web/app-error</location>
+	</error-page>
 </web-app>
