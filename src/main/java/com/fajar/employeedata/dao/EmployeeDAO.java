@@ -94,12 +94,7 @@ public class EmployeeDAO {
 		if ("position".equals(tableRequest.getOrderBy())) {
 			tableRequest.setOrderBy("position.name");
 		}
-		Sort sort = Sort.by(tableRequest.getOrder());
-		int size = tableRequest.getLimit() > 0 ? tableRequest.getLimit() : Integer.MAX_VALUE;
-		int page = tableRequest.getPage();
-		Pageable pageable = PageRequest.of(page, size, sort);
-
-		Page<Employee> result = employeeRepository.findAllNotDeleted(pageable);
+		Page<Employee> result = employeeRepository.findAllNotDeleted(tableRequest.getPageRequest());
 		return result;
 
 	}
