@@ -19,8 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
-//@Table(name="tb_master_user")
-@Table(name="T2_EMPLOYEE")
+@Table(name="tb_master_user")
 @Data
 public class Employee implements Serializable{
 
