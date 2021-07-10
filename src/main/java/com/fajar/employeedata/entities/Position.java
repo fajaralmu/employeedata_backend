@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
+//@Table(name="tb_master_user_role")
 @Table(name="T1_POSITION")
 @Data
 public class Position implements Serializable {
@@ -27,7 +28,7 @@ public class Position implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
-	@Column(name="CODE", nullable = false, length = 50)
+	@Column(name="CODE", unique = true, nullable = false, length = 50)
 	private String code;
 	@Column(name="NAME", nullable = false, length = 100)
 	private String name;

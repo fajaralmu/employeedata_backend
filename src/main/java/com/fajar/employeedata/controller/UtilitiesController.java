@@ -26,7 +26,7 @@ public class UtilitiesController  {
 	private ObjectMapper objectMapper;
 	
 	@RequestMapping(value = "/app-error", produces = MediaType.APPLICATION_JSON_VALUE, method = {RequestMethod.POST, RequestMethod.GET}) 
-	public void errorNotFound(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {
+	public void handleError(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {
 		 
 		int httpErrorCode = getErrorCode(httpRequest);
 

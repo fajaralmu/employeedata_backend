@@ -101,7 +101,7 @@ public class EmployeeDAO {
 		if ("position".equals(tableRequest.getOrderBy())) {
 			tableRequest.setOrderBy("position.name");
 		}
-		Page<Employee> result = employeeRepository.findAllNotDeleted(tableRequest.getPageRequest());
+		Page<Employee> result = employeeRepository.findAllNotDeleted(tableRequest.getSearch().toLowerCase(), tableRequest.getPageRequest());
 		return result;
 
 	}

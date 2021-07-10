@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
+//@Table(name="tb_master_user")
 @Table(name="T2_EMPLOYEE")
 @Data
 public class Employee implements Serializable{
@@ -33,6 +34,10 @@ public class Employee implements Serializable{
 	private int id;
 	@Column(name="NAME", nullable = false, length = 100)
 	private String name;
+	@Column(name="EMAIL", length = 100)
+	private String email;
+	@Column(name="ADDRESS", length = 1000)
+	private String address;
 	@ManyToOne
 	@JoinColumn(name = "POSITION_ID", nullable = false)
 	private Position position;

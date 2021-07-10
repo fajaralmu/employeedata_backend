@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fajar.employeedata.dto.EmployeeDTO;
 import com.fajar.employeedata.dto.TableRequest;
 import com.fajar.employeedata.entities.Employee;
+import com.fajar.employeedata.entities.Position;
 import com.fajar.employeedata.service.EmployeeService;
 import com.fajar.employeedata.service.PositionService;
 
@@ -51,6 +52,11 @@ public class EmployeeController {
 	@PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Employee delete(@RequestBody Employee employee) {
 		return employeeService.delete(employee);
+	}
+	
+	@PostMapping(value = "/insertposition", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Position insertposition(@RequestBody Position position) {
+		return positionService.insert(position);
 	}
 
 }

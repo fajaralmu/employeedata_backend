@@ -22,6 +22,7 @@ public class TableRequest implements Serializable{
 	private static final long serialVersionUID = -2868888441245438947L;
 	private int limit;
 	private int page;
+	private String search;
 	private String orderBy;
 	@Getter(value=AccessLevel.NONE)
 	private String orderType;
